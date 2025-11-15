@@ -4,7 +4,7 @@ package vanilla
 
 import mapset "github.com/deckarep/golang-set/v2"
 
-var TradingTable = mapset.NewSet(
+var TradeTable = mapset.NewSet(
   "trading/armorer_trades.json",
   "trading/butcher_trades.json",
   "trading/cartographer_trades.json",

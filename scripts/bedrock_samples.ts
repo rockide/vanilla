@@ -135,7 +135,7 @@ const entries = [
 		},
 	}),
 	newPathEntry({
-		filename: "trading_table",
+		filename: "trade_table",
 		pattern: bp("trading/**/*.json"),
 		transform: (filepath) => relativePath(filepath, "trading", false),
 	}),
