@@ -134,6 +134,11 @@ const entries = [
 			}
 		},
 	}),
+	newPathEntry({
+		filename: "trading_table",
+		pattern: bp("trading/**/*.json"),
+		transform: (filepath) => relativePath(filepath, "trading", false),
+	}),
 	// RP
 	newJsonEntry<ClientAnimationControllers | ClientAnimations>({
 		filename: "client_animation_id",
