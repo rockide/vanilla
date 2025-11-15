@@ -1,0 +1,69 @@
+name: Generate .go Files
+on:
+  schedule:
+    # At 00:00 on Tuesday
+    - cron: "0 0 * * 2"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Get version
+        id: get_version
+        run: |
+          if [ -f "version.txt" ]; then
+            echo "last_version=$(cat version.txt)" >> $GITHUB_OUTPUT
+            rm version.txt
+          else
+            echo "last_version=none" >> $GITHUB_OUTPUT
+          fi
+          curl -s https://raw.githubusercontent.com/Mojang/bedrock-samples/main/version.json > ./temp/version.json
+          jq -r '.latest.version' ./temp/version.json > ./version.txt
+          echo "Version: v$(cat ./version.txt)"
+          echo "version=v$(cat ./version.txt)" >> $GITHUB_OUTPUT
+      - name: Cleanup .go files
+        run: rm -f ./*.go
+      - name: Setup Bun
+        if: steps.get_version.outputs.version != steps.get_version.outputs.last_version
+        uses: oven-sh/setup-bun@v2
+      - name: Run build script
+        if: steps.get_version.outputs.version != steps.get_version.outputs.last_version
+        run: |
+          cd scripts
+          bun i
+          bun i @minecraft/vanilla-data@latest
+          bun run build -o ../
+          cd ..
+      - name: Create commit
+        if: steps.get_version.outputs.version != steps.get_version.outputs.last_version
+        run: |
+          git add .
+          git config --global user.email "bot@github.com"
+          git config --global user.name "Github Bot"
+          git commit -m "${{ steps.get_version.outputs.version }}"
+      - name: Push changes
+        if: steps.get_version.outputs.version != steps.get_version.outputs.last_version
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.get_version.outputs.version }}
+      - name: Create pull request
+        if: steps.get_version.outputs.version != steps.get_version.outputs.last_version
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "${{ steps.get_version.outputs.version }}"
+          title: "${{ steps.get_version.outputs.version }}"
+          body: |
+            This is an automated pull request to update the vanilla data.
+            - [ ] Review the changes
+            - [ ] Run patches on local
+            - [ ] Check updates for item tags
+            - [ ] Check updates for block tags
+            - [ ] Update README.md with the new version
+          branch: ${{ steps.get_version.outputs.version }}
+          base: main
+          draft: false

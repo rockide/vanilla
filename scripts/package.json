@@ -1,0 +1,19 @@
+{
+	"name": "rockide-vanilla",
+	"type": "module",
+	"devDependencies": {
+		"@minecraft/vanilla-data": "^1.21.123",
+		"@types/bun": "latest",
+		"bedrock-ts": "^0.13.0",
+		"cross-env": "^10.1.0",
+		"dprint": "^0.50.2",
+		"json5": "^2.2.3",
+		"prettier": "^3.6.2",
+		"prettier-plugin-organize-imports": "^4.3.0"
+	},
+	"private": true,
+	"scripts": {
+		"build": "bun run index.ts",
+		"format": "prettier --write ."
+	}
+}
