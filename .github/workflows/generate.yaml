@@ -24,6 +24,7 @@ jobs:
           else
             echo "last_version=none" >> $GITHUB_OUTPUT
           fi
+          mkdir -p ./temp
           curl -s https://raw.githubusercontent.com/Mojang/bedrock-samples/main/version.json > ./temp/version.json
           jq -r '.latest.version' ./temp/version.json > ./version.txt
           echo "Version: v$(cat ./version.txt)"
