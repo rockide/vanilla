@@ -12,12 +12,36 @@ type Material = {
 };
 type Material2 = Record<string, unknown>;
 
+type Processors = JsonDefinition<"minecraft:processor_list">;
+type StructureSet = JsonDefinition<"minecraft:structure_set">;
+type TemplatePool = JsonDefinition<"minecraft:template_pool">;
 type Atmospherics = JsonDefinition<"minecraft:atmosphere_settings">;
 type ColorGrading = JsonDefinition<"minecraft:color_grading_settings">;
 type Lighting = JsonDefinition<"minecraft:lighting_settings">;
 type Water = JsonDefinition<"minecraft:water_settings">;
 
 const entries = [
+	<Entry<Processors>>{
+		filename: "worldgen_processor_id",
+		pattern: path.join(getMinecraftPath("bp"), "*", "worldgen", "processors", "**/*.json"),
+		transform: (json) => {
+			return json["minecraft:processor_list"].description.identifier;
+		},
+	},
+	<Entry<StructureSet>>{
+		filename: "worldgen_structure_set_id",
+		pattern: path.join(getMinecraftPath("bp"), "*", "worldgen", "structure_sets", "**/*.json"),
+		transform: (json) => {
+			return json["minecraft:structure_set"].description.identifier;
+		},
+	},
+	<Entry<TemplatePool>>{
+		filename: "worldgen_template_pool_id",
+		pattern: path.join(getMinecraftPath("bp"), "*", "worldgen", "template_pools", "**/*.json"),
+		transform: (json) => {
+			return json["minecraft:template_pool"].description.identifier;
+		},
+	},
 	<Entry<Material | Material2>>{
 		filename: "material",
 		pattern: path.join(getMinecraftPath("rp"), "*", "materials", "**/*.material"),
