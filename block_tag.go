@@ -1,0 +1,46 @@
+// Code generated; DO NOT EDIT.
+
+package vanilla
+
+import mapset "github.com/deckarep/golang-set/v2"
+
+var BlockTag = mapset.NewSet(
+  "acacia",
+  "birch",
+  "dark_oak",
+  "diamond_pick_diggable",
+  "dirt",
+  "fertilize_area",
+  "grass",
+  "gravel",
+  "iron_pick_diggable",
+  "jungle",
+  "log",
+  "metal",
+  "minecraft:crop",
+  "minecraft:diamond_tier_destructible",
+  "minecraft:iron_tier_destructible",
+  "minecraft:is_axe_item_destructible",
+  "minecraft:is_hoe_item_destructible",
+  "minecraft:is_pickaxe_item_destructible",
+  "minecraft:is_shears_item_destructible",
+  "minecraft:is_shovel_item_destructible",
+  "minecraft:is_sword_item_destructible",
+  "minecraft:stone_tier_destructible",
+  "mob_spawner",
+  "not_feature_replaceable",
+  "oak",
+  "one_way_collidable",
+  "plant",
+  "pumpkin",
+  "rail",
+  "sand",
+  "snow",
+  "spruce",
+  "stone",
+  "stone_pick_diggable",
+  "text_sign",
+  "trapdoors",
+  "water",
+  "wood",
+)
