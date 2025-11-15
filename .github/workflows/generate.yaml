@@ -30,6 +30,7 @@ jobs:
           echo "Version: v$(cat ./version.txt)"
           echo "version=v$(cat ./version.txt)" >> $GITHUB_OUTPUT
       - name: Cleanup .go files
+        if: steps.get_version.outputs.version != steps.get_version.outputs.last_version
         run: rm -f ./*.go
       - name: Setup Bun
         if: steps.get_version.outputs.version != steps.get_version.outputs.last_version
