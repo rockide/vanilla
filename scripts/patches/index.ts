@@ -43,8 +43,26 @@ const entries = [
 		},
 	},
 	<Entry<Material | Material2>>{
-		filename: "material",
-		pattern: path.join(getMinecraftPath("rp"), "*", "materials", "**/*.material"),
+		filename: "particle_material",
+		pattern: path.join(getMinecraftPath("rp"), "*", "materials", "**/particles.material"),
+		transform: (json) => {
+			const items: string[] = [];
+			let keys = Object.keys(json);
+			if ("materials" in json) {
+				keys = Object.keys((json as Material).materials).filter((key) => key !== "version");
+				for (const key of keys) {
+					const mat = key.includes(":") ? key.split(":")[0] : key;
+					if (mat) {
+						items.push(mat);
+					}
+				}
+			}
+			return items;
+		},
+	},
+	<Entry<Material | Material2>>{
+		filename: "entity_material",
+		pattern: path.join(getMinecraftPath("rp"), "*", "materials", "**/entity.material"),
 		transform: (json) => {
 			const items: string[] = [];
 			let keys = Object.keys(json);
