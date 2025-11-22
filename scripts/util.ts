@@ -12,7 +12,7 @@ export async function generate(filepath: string, entry: Entry[]) {
 		"",
 	];
 	for (const { name, items } of entry) {
-		lines.push(`var ${name} = mapset.NewSet(`, items.map((i) => `  "${i}",`).join("\n"), ")", "");
+		lines.push(`var ${name} = mapset.NewThreadUnsafeSet(`, items.map((i) => `\t"${i}",`).join("\n"), ")", "");
 	}
 	await Bun.write(filepath, lines.join("\n"));
 }

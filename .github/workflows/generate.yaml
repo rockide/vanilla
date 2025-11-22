@@ -19,7 +19,7 @@ jobs:
         id: get_version
         run: |
           if [ -f "version.txt" ]; then
-            echo "last_version=$(cat version.txt)" >> $GITHUB_OUTPUT
+            echo "last_version=$(cat ./version.txt)" >> $GITHUB_OUTPUT
             rm version.txt
           else
             echo "last_version=none" >> $GITHUB_OUTPUT
@@ -28,7 +28,7 @@ jobs:
           curl -s https://raw.githubusercontent.com/Mojang/bedrock-samples/main/version.json > ./temp/version.json
           jq -r '.latest.version' ./temp/version.json > ./version.txt
           echo "Version: v$(cat ./version.txt)"
-          echo "version=v$(cat ./version.txt)" >> $GITHUB_OUTPUT
+          echo "version=$(cat ./version.txt)" >> $GITHUB_OUTPUT
       - name: Cleanup .go files
         if: steps.get_version.outputs.version != steps.get_version.outputs.last_version
         run: rm -f ./*.go
