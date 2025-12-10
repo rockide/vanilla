@@ -80,6 +80,7 @@ var BlockState = mapset.NewThreadUnsafeSet(
 	"minecraft:connection_north",
 	"minecraft:connection_south",
 	"minecraft:connection_west",
+	"minecraft:corner",
 	"minecraft:facing_direction",
 	"minecraft:vertical_half",
 	"moisturized_amount",

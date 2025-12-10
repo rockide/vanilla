@@ -9,5 +9,6 @@ var CooldownCategory = mapset.NewThreadUnsafeSet(
 	"ender_pearl",
 	"goat_horn",
 	"shield",
+	"spear",
 	"wind_charge",
 )

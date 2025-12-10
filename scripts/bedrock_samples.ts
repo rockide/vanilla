@@ -85,7 +85,7 @@ const entries = [
 		},
 	}),
 	newJsonEntry<Entity>({
-		filename: "family_type",
+		filename: "type_family",
 		pattern: bp("entities/**/*.json"),
 		transform: (data) => {
 			const family1 = data["minecraft:entity"].components?.["minecraft:type_family"]?.family;
