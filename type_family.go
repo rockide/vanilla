@@ -4,7 +4,7 @@ package vanilla
 
 import mapset "github.com/deckarep/golang-set/v2"
 
-var FamilyType = mapset.NewThreadUnsafeSet(
+var TypeFamily = mapset.NewThreadUnsafeSet(
 	"adult_piglin",
 	"allay",
 	"animal",
