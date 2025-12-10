@@ -109,6 +109,7 @@ var ParticleId = mapset.NewThreadUnsafeSet(
 	"minecraft:mobspell_emitter",
 	"minecraft:mobspell_lingering",
 	"minecraft:mycelium_dust_particle",
+	"minecraft:nautilus_bubbles_particle",
 	"minecraft:nectar_drip_particle",
 	"minecraft:note_particle",
 	"minecraft:obsidian_glow_dust_particle",
