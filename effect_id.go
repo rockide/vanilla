@@ -1,0 +1,45 @@
+// Code generated; DO NOT EDIT.
+
+package vanilla
+
+import mapset "github.com/deckarep/golang-set/v2"
+
+var EffectId = mapset.NewThreadUnsafeSet(
+	"absorption",
+	"bad_omen",
+	"blindness",
+	"breath_of_the_nautilus",
+	"conduit_power",
+	"darkness",
+	"fatal_poison",
+	"fire_resistance",
+	"haste",
+	"health_boost",
+	"hunger",
+	"infested",
+	"instant_damage",
+	"instant_health",
+	"invisibility",
+	"jump_boost",
+	"levitation",
+	"mining_fatigue",
+	"nausea",
+	"night_vision",
+	"oozing",
+	"poison",
+	"raid_omen",
+	"regeneration",
+	"resistance",
+	"saturation",
+	"slow_falling",
+	"slowness",
+	"speed",
+	"strength",
+	"trial_omen",
+	"village_hero",
+	"water_breathing",
+	"weakness",
+	"weaving",
+	"wind_charged",
+	"wither",
+)

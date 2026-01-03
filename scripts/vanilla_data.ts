@@ -26,9 +26,17 @@ const entries: Partial<Record<VanillaEnum, Options>> = {
 		filename: "cooldown_category",
 		prefix: "no",
 	},
+	MinecraftEffectTypes: {
+		filename: "effect_id",
+		prefix: "no",
+	},
 	MinecraftEntityTypes: {
 		filename: "entity_id",
 		prefix: "both",
+	},
+	MinecraftEnchantmentTypes: {
+		filename: "enchantment_id",
+		prefix: "no",
 	},
 	MinecraftFeatureTypes: {
 		filename: "feature_id",
