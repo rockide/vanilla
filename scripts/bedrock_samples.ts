@@ -245,6 +245,30 @@ function isPathEntry(entry: PathEntry | JsonEntry): entry is PathEntry {
 	return entry.type === "path";
 }
 
+async function lang() {
+	const filepath = path.join("temp/bedrock-samples", rp("texts/en_US.lang"));
+	const text = await Bun.file(filepath).text();
+	const items: string[] = [];
+	for (const line of text.split("\n")) {
+		const trimmed = line.trim();
+		if (trimmed === "" || trimmed.startsWith("#")) {
+			continue;
+		}
+		const [key] = trimmed.split("=");
+		if (key) {
+			items.push(key);
+		}
+	}
+	items.sort();
+	const outDir = getOutDir();
+	await generate(path.join(outDir, `lang_key.go`), [
+		{
+			items,
+			name: "LangKey",
+		},
+	]);
+}
+
 async function main() {
 	await clone();
 	console.log("Scrapping Minecraft Bedrock samples...");
@@ -291,6 +315,7 @@ async function main() {
 				name: pascalCase(filename),
 			},
 		]);
+		await lang();
 	}
 }
 
