@@ -87,7 +87,6 @@ var CommandDamageCause = mapset.NewThreadUnsafeSet(
 	"lightning",
 	"freezing",
 	"temperature",
-	"dehydration",
 )
 
 var CommandGameMode = mapset.NewThreadUnsafeSet(
