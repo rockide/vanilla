@@ -186,6 +186,7 @@ var EntityMaterial = mapset.NewThreadUnsafeSet(
 	"saddle",
 	"salmon",
 	"sheep",
+	"sheep_baby",
 	"shield",
 	"shield_glint",
 	"shulker",
