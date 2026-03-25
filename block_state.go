@@ -82,6 +82,7 @@ var BlockState = mapset.NewThreadUnsafeSet(
 	"minecraft:connection_west",
 	"minecraft:corner",
 	"minecraft:facing_direction",
+	"minecraft:multi_block_part",
 	"minecraft:vertical_half",
 	"moisturized_amount",
 	"monster_egg_stone_type",
