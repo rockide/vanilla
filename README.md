@@ -1,6 +1,6 @@
 # Vanilla
 
-Minecraft version: v1.26.0.2
+Minecraft version: v1.26.10.4
 
 Provides a collection of Minecraft vanilla data in Go.
 

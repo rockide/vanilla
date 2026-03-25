@@ -512,6 +512,7 @@ var TerrainTextureId = mapset.NewThreadUnsafeSet(
 	"glowstone",
 	"gold_block",
 	"gold_ore",
+	"golden_dandelion",
 	"granite",
 	"granite_slab",
 	"granite_wall",

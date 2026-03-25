@@ -18,7 +18,6 @@ var TypeFamily = mapset.NewThreadUnsafeSet(
 	"baby_piglin",
 	"baby_turtle",
 	"baby_undead",
-	"baby_undead ",
 	"baby_zombie_pigman",
 	"bat",
 	"bee",
