@@ -490,6 +490,7 @@ var ClientAnimationId = mapset.NewThreadUnsafeSet(
 	"animation.tripod_camera.neutral",
 	"animation.tropicalfish.flop",
 	"animation.tropicalfish.swim",
+	"animation.turtle.baby_move",
 	"animation.turtle.general",
 	"animation.turtle.ground_move",
 	"animation.turtle.move",

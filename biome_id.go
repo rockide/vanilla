@@ -83,6 +83,7 @@ var BiomeId = mapset.NewThreadUnsafeSet(
 	"minecraft:soulsand_valley",
 	"minecraft:stone_beach",
 	"minecraft:stony_peaks",
+	"minecraft:sulfur_caves",
 	"minecraft:sunflower_plains",
 	"minecraft:swampland",
 	"minecraft:swampland_mutated",

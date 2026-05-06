@@ -2,7 +2,7 @@
 	"name": "rockide-vanilla",
 	"type": "module",
 	"devDependencies": {
-		"@minecraft/vanilla-data": "^1.26.10",
+		"@minecraft/vanilla-data": "^1.26.20",
 		"@types/bun": "latest",
 		"bedrock-ts": "^0.13.0",
 		"cross-env": "^10.1.0",
