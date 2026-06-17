@@ -49,6 +49,7 @@ var MusicDefinitionId = mapset.NewThreadUnsafeSet(
 	"snowy_slopes",
 	"soulsand_valley",
 	"stony_peaks",
+	"sulfur_caves",
 	"swampland",
 	"swampland_mutated",
 	"water",

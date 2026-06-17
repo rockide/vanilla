@@ -91,6 +91,7 @@ var BiomeTag = mapset.NewThreadUnsafeSet(
 	"spawns_white_rabbits",
 	"spawns_without_patrols",
 	"stone",
+	"sulfur_caves",
 	"surface_mineshaft",
 	"swamp",
 	"swamp_water_huge_mushroom",
