@@ -208,6 +208,8 @@ var EntityMaterial = mapset.NewThreadUnsafeSet(
 	"stray",
 	"stray_clothes",
 	"strider",
+	"sulfur_cube",
+	"sulfur_cube_outer",
 	"tadpole",
 	"trial_spawner",
 	"trident",
