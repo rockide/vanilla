@@ -118,6 +118,7 @@ var TypeFamily = mapset.NewThreadUnsafeSet(
 	"strider",
 	"strider_adult",
 	"strider_baby",
+	"sulfur_cube",
 	"tadpole",
 	"tnt",
 	"toolsmith",

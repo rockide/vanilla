@@ -194,6 +194,8 @@ var GeometryId = mapset.NewThreadUnsafeSet(
 	"geometry.stray.armor.v1.8",
 	"geometry.strider",
 	"geometry.strider.baby",
+	"geometry.sulfur_cube",
+	"geometry.sulfur_cube.small",
 	"geometry.tadpole",
 	"geometry.trident",
 	"geometry.tripod_camera",
