@@ -20,6 +20,7 @@ var BiomeId = mapset.NewThreadUnsafeSet(
 	"minecraft:cold_taiga_hills",
 	"minecraft:cold_taiga_mutated",
 	"minecraft:crimson_forest",
+	"minecraft:dappled_forest",
 	"minecraft:deep_cold_ocean",
 	"minecraft:deep_dark",
 	"minecraft:deep_frozen_ocean",
