@@ -10,7 +10,6 @@ import type {
 	SoundDefinition,
 	TerrainTexture,
 } from "bedrock-ts";
-import { spawn } from "bun";
 import path from "path/posix";
 import { generate, getOutDir, pascalCase, readJson } from "./util";
 
@@ -19,6 +18,7 @@ type JsonEntry<T = unknown> = {
 	pattern: string;
 	filename: string;
 	transform(data: T): string | string[] | undefined;
+	incremental?: boolean;
 };
 
 type PathEntry = {
@@ -39,22 +39,12 @@ type Biome = JsonDefinition<"minecraft:biome"> & {
 	};
 };
 
-const REPO = "Mojang/bedrock-samples";
-
-async function clone() {
-	const URL = `https://github.com/${REPO}.git`;
-	await spawn({
-		cmd: ["git", "clone", "--depth", "1", URL, "temp/bedrock-samples"],
-		stderr: "inherit",
-	}).exited;
-}
-
 function rp(pattern: string) {
-	return path.join("resource_pack", pattern);
+	return path.join("resource_packs/{vanilla,vanilla_[0-9]*.[0-9]*,vanilla_[0-9]*.[0-9]*.[0-9]*}", pattern);
 }
 
 function bp(pattern: string) {
-	return path.join("behavior_pack", pattern);
+	return path.join("behavior_packs/{vanilla,vanilla_[0-9]*.[0-9]*,vanilla_[0-9]*.[0-9]*.[0-9]*}", pattern);
 }
 
 function newJsonEntry<T>(entry: Omit<JsonEntry<T>, "type">): JsonEntry<T> {
@@ -203,13 +193,18 @@ const entries = [
 	newJsonEntry<SoundDefinition>({
 		filename: "sound_definition_id",
 		pattern: rp("sounds/sound_definitions.json"),
+		incremental: true,
 		transform: (data) => {
-			return Object.keys(data.sound_definitions);
+			if ("sound_definitions" in data) {
+				return Object.keys(data.sound_definitions);
+			}
+			return Object.keys(data);
 		},
 	}),
 	newJsonEntry<Record<string, unknown>>({
 		filename: "music_definition_id",
 		pattern: rp("sounds/music_definitions.json"),
+		incremental: true,
 		transform: (data) => {
 			return Object.keys(data);
 		},
@@ -228,6 +223,7 @@ const entries = [
 	newJsonEntry<ItemTexture>({
 		filename: "item_texture_id",
 		pattern: rp("textures/item_texture.json"),
+		incremental: true,
 		transform: (data) => {
 			return Object.keys(data.texture_data);
 		},
@@ -235,6 +231,7 @@ const entries = [
 	newJsonEntry<TerrainTexture>({
 		filename: "terrain_texture_id",
 		pattern: rp("textures/terrain_texture.json"),
+		incremental: true,
 		transform: (data) => {
 			return Object.keys(data.texture_data);
 		},
@@ -246,7 +243,8 @@ function isPathEntry(entry: PathEntry | JsonEntry): entry is PathEntry {
 }
 
 async function lang() {
-	const filepath = path.join("temp/bedrock-samples", rp("texts/en_US.lang"));
+	const minecraftPath = Bun.env["MINECRAFT_PATH"]!;
+	const filepath = path.join(minecraftPath, "resource_packs/vanilla/texts/en_US.lang");
 	const text = await Bun.file(filepath).text();
 	const items: string[] = [];
 	for (const line of text.split("\n")) {
@@ -270,52 +268,85 @@ async function lang() {
 }
 
 async function main() {
-	await clone();
-	console.log("Scrapping Minecraft Bedrock samples...");
+	await lang();
+
+	const minecraftPath = Bun.env["MINECRAFT_PATH"]!;
+	const jsonEntryMap = new WeakMap<JsonEntry, Map<string, { version: string; value: string[] }>>();
+	const pathEntryMap = new WeakMap<PathEntry, Set<string>>();
 	for (const entry of entries) {
-		const set = new Set<string>();
-		const items: string[] = [];
-		const filename = entry.filename;
-		for await (let filepath of new Bun.Glob(path.join("temp/bedrock-samples", entry.pattern)).scan()) {
+		const basePath = path.join(minecraftPath, entry.pattern);
+		for await (let filepath of new Bun.Glob(basePath).scan()) {
 			filepath = filepath.replace(/\\/g, "/");
+			const re = /vanilla(_\d+\.\d+(\.\d+)?)?\//;
+			const match = re.exec(filepath);
+			if (!match) {
+				continue;
+			}
 			if (isPathEntry(entry)) {
 				const result = entry.transform(filepath);
 				if (result) {
-					if (!set.has(result)) {
-						set.add(result);
-						items.push(result);
+					let set = pathEntryMap.get(entry);
+					if (!set) {
+						set = new Set();
+						pathEntryMap.set(entry, set);
 					}
+					set.add(result);
 				}
 			} else {
-				const json = await readJson(filepath);
-				const result = entry.transform(json);
-				if (!result) {
-					continue;
+				const version = match[1] ? match[1].slice(1) : "1.0.0";
+				const relative = filepath.slice(filepath.indexOf(match[0]) + match[0].length);
+				let map = jsonEntryMap.get(entry);
+				if (!map) {
+					map = new Map();
+					jsonEntryMap.set(entry, map);
 				}
-				if (Array.isArray(result)) {
-					for (const item of result) {
-						if (!set.has(item)) {
-							set.add(item);
-							items.push(item);
-						}
+
+				const prev = map.get(relative);
+				if (entry.incremental || !prev || Bun.semver.order(version, prev.version) > 0) {
+					const json = await readJson(filepath);
+					const result = entry.transform(json);
+					if (!result) {
+						continue;
 					}
-				} else {
-					if (!set.has(result)) {
-						set.add(result);
-						items.push(result);
+					let items = Array.isArray(result) ? result : [result];
+					if (prev && entry.incremental) {
+						const set = new Set(prev.value.concat(items));
+						items = Array.from(set);
 					}
+					map.set(relative, { version, value: items });
 				}
 			}
 		}
-		items.sort();
-		const outDir = getOutDir();
-		await generate(path.join(outDir, `${filename}.go`), [
-			{
-				items,
-				name: pascalCase(filename),
-			},
-		]);
-		await lang();
+	}
+
+	for (const entry of entries) {
+		if (isPathEntry(entry)) {
+			const set = pathEntryMap.get(entry);
+			if (!set) {
+				continue;
+			}
+			const items = Array.from(set).sort();
+			const outDir = getOutDir();
+			await generate(path.join(outDir, `${entry.filename}.go`), [
+				{
+					items,
+					name: pascalCase(entry.filename),
+				},
+			]);
+		} else {
+			const map = jsonEntryMap.get(entry);
+			if (!map) {
+				continue;
+			}
+			const items = new Set(Array.from(map.values()).flatMap((v) => v.value));
+			const outDir = getOutDir();
+			await generate(path.join(outDir, `${entry.filename}.go`), [
+				{
+					items: Array.from(items).sort(),
+					name: pascalCase(entry.filename),
+				},
+			]);
+		}
 	}
 }
 
