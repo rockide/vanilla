@@ -38,6 +38,7 @@ type Biome = JsonDefinition<"minecraft:biome"> & {
 		};
 	};
 };
+type VoxelShape = JsonDefinition<"minecraft:voxel_shape">;
 
 function rp(pattern: string) {
 	return path.join("resource_packs/{vanilla,vanilla_[0-9]*.[0-9]*,vanilla_[0-9]*.[0-9]*.[0-9]*}", pattern);
@@ -122,6 +123,13 @@ const entries = [
 					return tags;
 				}
 			}
+		},
+	}),
+	newJsonEntry<VoxelShape>({
+		filename: "voxel_shape_id",
+		pattern: bp("shapes/**/*.json"),
+		transform: (data) => {
+			return data["minecraft:voxel_shape"].description.identifier;
 		},
 	}),
 	newPathEntry({
