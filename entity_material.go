@@ -59,6 +59,7 @@ var EntityMaterial = mapset.NewThreadUnsafeSet(
 	"creaking",
 	"creaking_eyes",
 	"creeper",
+	"cushion",
 	"dolphin",
 	"dragon_head",
 	"dragon_head_glint",

@@ -38,6 +38,7 @@ type Biome = JsonDefinition<"minecraft:biome"> & {
 		};
 	};
 };
+type VoxelShape = JsonDefinition<"minecraft:voxel_shape">;
 
 const REPO = "Mojang/bedrock-samples";
 
@@ -132,6 +133,13 @@ const entries = [
 					return tags;
 				}
 			}
+		},
+	}),
+	newJsonEntry<VoxelShape>({
+		filename: "voxel_shape_id",
+		pattern: bp("shapes/**/*.json"),
+		transform: (data) => {
+			return data["minecraft:voxel_shape"].description.identifier;
 		},
 	}),
 	newPathEntry({

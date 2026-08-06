@@ -46,6 +46,7 @@ var ItemTag = mapset.NewThreadUnsafeSet(
 	"minecraft:logs_that_burn",
 	"minecraft:mangrove_logs",
 	"minecraft:metal_nuggets",
+	"minecraft:mushrooms_for_stew",
 	"minecraft:music_disc",
 	"minecraft:nautilus_armor",
 	"minecraft:netherite_tier",
