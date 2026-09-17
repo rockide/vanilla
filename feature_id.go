@@ -5,6 +5,14 @@ package vanilla
 import mapset "github.com/deckarep/golang-set/v2"
 
 var FeatureId = mapset.NewThreadUnsafeSet(
+	"minecraft:abandoned_camp_bamboo_jungle",
+	"minecraft:abandoned_camp_birch_forest",
+	"minecraft:abandoned_camp_cherry_grove",
+	"minecraft:abandoned_camp_dappled_forest",
+	"minecraft:abandoned_camp_extreme_hills_plus_trees",
+	"minecraft:abandoned_camp_flower_forest",
+	"minecraft:abandoned_camp_pale_garden",
+	"minecraft:abandoned_camp_swampland",
 	"minecraft:ancient_city",
 	"minecraft:bastion_remnant",
 	"minecraft:buried_treasure",

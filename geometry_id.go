@@ -65,6 +65,7 @@ var GeometryId = mapset.NewThreadUnsafeSet(
 	"geometry.crossbow_pulling_2",
 	"geometry.crossbow_rocket",
 	"geometry.crossbow_standby",
+	"geometry.cushion",
 	"geometry.dolphin",
 	"geometry.dolphin.baby",
 	"geometry.donkeymule.baby",
@@ -229,4 +230,8 @@ var GeometryId = mapset.NewThreadUnsafeSet(
 	"geometry.zombie.villager.v1.8",
 	"geometry.zombie.villager_v2",
 	"geometry.zombie_nautilus_coral",
+	"minecraft:geometry.shelf_mushroom_large",
+	"minecraft:geometry.shelf_mushroom_small",
+	"minecraft:geometry.straw_bed_foot",
+	"minecraft:geometry.straw_bed_head",
 )

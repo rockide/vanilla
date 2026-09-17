@@ -49,6 +49,7 @@ var RenderControllerId = mapset.NewThreadUnsafeSet(
 	"controller.render.creeper",
 	"controller.render.creeper_armor",
 	"controller.render.crossbow",
+	"controller.render.cushion",
 	"controller.render.default",
 	"controller.render.dolphin",
 	"controller.render.dolphin.v2",

@@ -15,29 +15,25 @@ type Material2 = Record<string, unknown>;
 type Processors = JsonDefinition<"minecraft:processor_list">;
 type StructureSet = JsonDefinition<"minecraft:structure_set">;
 type TemplatePool = JsonDefinition<"minecraft:template_pool">;
-type Atmospherics = JsonDefinition<"minecraft:atmosphere_settings">;
-type ColorGrading = JsonDefinition<"minecraft:color_grading_settings">;
-type Lighting = JsonDefinition<"minecraft:lighting_settings">;
-type Water = JsonDefinition<"minecraft:water_settings">;
 
 const entries = [
 	<Entry<Processors>>{
 		filename: "worldgen_processor_id",
-		pattern: path.join(getMinecraftPath("bp"), "*", "worldgen", "processors", "**/*.json"),
+		pattern: path.join(getMinecraftPath("bp"), "*", "__brarchive", "worldgen", "processors.brarchive"),
 		transform: (json) => {
 			return json["minecraft:processor_list"].description.identifier;
 		},
 	},
 	<Entry<StructureSet>>{
 		filename: "worldgen_structure_set_id",
-		pattern: path.join(getMinecraftPath("bp"), "*", "worldgen", "structure_sets", "**/*.json"),
+		pattern: path.join(getMinecraftPath("bp"), "*", "__brarchive", "worldgen", "structure_sets.brarchive"),
 		transform: (json) => {
 			return json["minecraft:structure_set"].description.identifier;
 		},
 	},
 	<Entry<TemplatePool>>{
 		filename: "worldgen_template_pool_id",
-		pattern: path.join(getMinecraftPath("bp"), "*", "worldgen", "template_pools", "**/*.json"),
+		pattern: path.join(getMinecraftPath("bp"), "*", "__brarchive", "worldgen", "template_pools", "**/*.brarchive"),
 		transform: (json) => {
 			return json["minecraft:template_pool"].description.identifier;
 		},
@@ -76,34 +72,6 @@ const entries = [
 				}
 			}
 			return items;
-		},
-	},
-	<Entry<Atmospherics>>{
-		filename: "atmosphere_id",
-		pattern: path.join(getMinecraftPath("rp"), "*", "atmospherics", "**/*.json"),
-		transform: (json) => {
-			return json["minecraft:atmosphere_settings"].description.identifier;
-		},
-	},
-	<Entry<ColorGrading>>{
-		filename: "color_grading_id",
-		pattern: path.join(getMinecraftPath("rp"), "*", "color_grading", "**/*.json"),
-		transform: (json) => {
-			return json["minecraft:color_grading_settings"].description.identifier;
-		},
-	},
-	<Entry<Lighting>>{
-		filename: "lighting_id",
-		pattern: path.join(getMinecraftPath("rp"), "*", "lighting", "**/*.json"),
-		transform: (json) => {
-			return json["minecraft:lighting_settings"].description.identifier;
-		},
-	},
-	<Entry<Water>>{
-		filename: "water_id",
-		pattern: path.join(getMinecraftPath("rp"), "*", "water", "**/*.json"),
-		transform: (json) => {
-			return json["minecraft:water_settings"].description.identifier;
 		},
 	},
 ] satisfies Array<Entry>;

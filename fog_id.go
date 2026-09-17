@@ -18,6 +18,7 @@ var FogId = mapset.NewThreadUnsafeSet(
 	"minecraft:fog_cold_taiga_hills",
 	"minecraft:fog_cold_taiga_mutated",
 	"minecraft:fog_crimson_forest",
+	"minecraft:fog_dappled_forest",
 	"minecraft:fog_deep_cold_ocean",
 	"minecraft:fog_deep_frozen_ocean",
 	"minecraft:fog_deep_lukewarm_ocean",
