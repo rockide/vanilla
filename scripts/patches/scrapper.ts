@@ -1,4 +1,5 @@
 import path from "path/posix";
+import extractBrarchive from "../brarchive";
 import { generate, getOutDir, pascalCase, readJson } from "../util";
 
 export type Scrapper<T = any> = {
@@ -11,22 +12,29 @@ export async function scrapMinecraftData<T = any>(filename: string, scrapper: Sc
 	const items: string[] = [];
 	const set = new Set<string>();
 	for await (const entry of glob) {
-		const json = await readJson<T>(entry);
-		const result = scrapper.transform(json);
-		if (!result) {
-			continue;
-		}
-		if (Array.isArray(result)) {
-			for (const item of result) {
-				if (!set.has(item)) {
-					set.add(item);
-					items.push(item);
-				}
-			}
+		let contents: unknown[] = [];
+		if (entry.endsWith(".brarchive")) {
+			contents = (await extractBrarchive(entry)).map((file) => file.content);
 		} else {
-			if (!set.has(result)) {
-				set.add(result);
-				items.push(result);
+			contents = [await readJson<T>(entry)];
+		}
+		for (const json of contents) {
+			const result = scrapper.transform(json as T);
+			if (!result) {
+				continue;
+			}
+			if (Array.isArray(result)) {
+				for (const item of result) {
+					if (!set.has(item)) {
+						set.add(item);
+						items.push(item);
+					}
+				}
+			} else {
+				if (!set.has(result)) {
+					set.add(result);
+					items.push(result);
+				}
 			}
 		}
 	}

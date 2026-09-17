@@ -39,6 +39,9 @@ type Biome = JsonDefinition<"minecraft:biome"> & {
 	};
 };
 type VoxelShape = JsonDefinition<"minecraft:voxel_shape">;
+type Atmospherics = JsonDefinition<"minecraft:atmosphere_settings">;
+type ColorGrading = JsonDefinition<"minecraft:color_grading_settings">;
+type Water = JsonDefinition<"minecraft:water_settings">;
 
 const REPO = "Mojang/bedrock-samples";
 
@@ -148,6 +151,20 @@ const entries = [
 		transform: (filepath) => relativePath(filepath, "trading", false),
 	}),
 	// RP
+	newJsonEntry<Atmospherics>({
+		filename: "atmosphere_id",
+		pattern: rp("atmospherics/**/*.json"),
+		transform: (data) => {
+			return data["minecraft:atmosphere_settings"].description.identifier;
+		},
+	}),
+	newJsonEntry<ColorGrading>({
+		filename: "color_grading_id",
+		pattern: rp("color_grading/**/*.json"),
+		transform: (data) => {
+			return data["minecraft:color_grading_settings"].description.identifier;
+		},
+	}),
 	newJsonEntry<ClientAnimationControllers | ClientAnimations>({
 		filename: "client_animation_id",
 		pattern: rp("{animation_controllers,animations}/**/*.json"),
@@ -245,6 +262,13 @@ const entries = [
 		pattern: rp("textures/terrain_texture.json"),
 		transform: (data) => {
 			return Object.keys(data.texture_data);
+		},
+	}),
+	newJsonEntry<Water>({
+		filename: "water_id",
+		pattern: rp("water/**/*.json"),
+		transform: (data) => {
+			return data["minecraft:water_settings"].description.identifier;
 		},
 	}),
 ] satisfies Array<PathEntry | JsonEntry>;
