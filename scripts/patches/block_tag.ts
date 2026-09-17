@@ -23,6 +23,7 @@ const items = [
 	"minecraft:is_shears_item_destructible",
 	"minecraft:is_shovel_item_destructible",
 	"minecraft:is_sword_item_destructible",
+	"minecraft:leaves",
 	"minecraft:stone_tier_destructible",
 	"mob_spawner",
 	"not_feature_replaceable",
