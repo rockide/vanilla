@@ -42,6 +42,7 @@ type VoxelShape = JsonDefinition<"minecraft:voxel_shape">;
 type Atmospherics = JsonDefinition<"minecraft:atmosphere_settings">;
 type ColorGrading = JsonDefinition<"minecraft:color_grading_settings">;
 type Water = JsonDefinition<"minecraft:water_settings">;
+type Lighting = JsonDefinition<"minecraft:lighting_settings">;
 
 const REPO = "Mojang/bedrock-samples";
 
@@ -199,6 +200,13 @@ const entries = [
 				}
 				return acc;
 			}, []);
+		},
+	}),
+	newJsonEntry<Lighting>({
+		filename: "lighting_id",
+		pattern: rp("lighting/**/*.json"),
+		transform: (data) => {
+			return data["minecraft:lighting_settings"].description.identifier;
 		},
 	}),
 	newJsonEntry<Particle>({

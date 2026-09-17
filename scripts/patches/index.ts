@@ -15,7 +15,6 @@ type Material2 = Record<string, unknown>;
 type Processors = JsonDefinition<"minecraft:processor_list">;
 type StructureSet = JsonDefinition<"minecraft:structure_set">;
 type TemplatePool = JsonDefinition<"minecraft:template_pool">;
-type Lighting = JsonDefinition<"minecraft:lighting_settings">;
 
 const entries = [
 	<Entry<Processors>>{
@@ -73,13 +72,6 @@ const entries = [
 				}
 			}
 			return items;
-		},
-	},
-	<Entry<Lighting>>{
-		filename: "lighting_id",
-		pattern: path.join(getMinecraftPath("rp"), "*", "lighting", "**/*.json"),
-		transform: (json) => {
-			return json["minecraft:lighting_settings"].description.identifier;
 		},
 	},
 ] satisfies Array<Entry>;
