@@ -121,6 +121,7 @@ var ParticleId = mapset.NewThreadUnsafeSet(
 	"minecraft:ominous_spawning_particle",
 	"minecraft:oozing_ambient",
 	"minecraft:oozing_emitter",
+	"minecraft:orange_poplar_leaves_particle",
 	"minecraft:pale_oak_leaves_particle",
 	"minecraft:pause_mob_growth",
 	"minecraft:phantom_trail_particle",
@@ -131,6 +132,7 @@ var ParticleId = mapset.NewThreadUnsafeSet(
 	"minecraft:raid_omen_ambient",
 	"minecraft:raid_omen_emitter",
 	"minecraft:rain_splash_particle",
+	"minecraft:red_poplar_leaves_particle",
 	"minecraft:redstone_ore_dust_particle",
 	"minecraft:redstone_repeater_dust_particle",
 	"minecraft:redstone_torch_dust_particle",
@@ -194,4 +196,5 @@ var ParticleId = mapset.NewThreadUnsafeSet(
 	"minecraft:wind_explosion_emitter",
 	"minecraft:witchspell_emitter",
 	"minecraft:wither_boss_invulnerable",
+	"minecraft:yellow_poplar_leaves_particle",
 )
