@@ -13,6 +13,7 @@ var EffectId = mapset.NewThreadUnsafeSet(
 	"darkness",
 	"fatal_poison",
 	"fire_resistance",
+	"freezing",
 	"haste",
 	"health_boost",
 	"hunger",
