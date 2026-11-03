@@ -44,6 +44,7 @@ var BiomeId = mapset.NewThreadUnsafeSet(
 	"minecraft:frozen_river",
 	"minecraft:grove",
 	"minecraft:hell",
+	"minecraft:ice_caves",
 	"minecraft:ice_mountains",
 	"minecraft:ice_plains",
 	"minecraft:ice_plains_spikes",
