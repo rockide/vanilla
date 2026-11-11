@@ -1,5 +1,9 @@
 import path from "path/posix";
 import { generate, getOutDir, pascalCase } from "../util";
+
+// Doesn't actually exist, but used in some way.
+const hardcoded = ["minecraft:has_fence_connections"];
+
 const items = [
 	"acacia",
 	"birch",
@@ -41,7 +45,9 @@ const items = [
 	"trapdoors",
 	"water",
 	"wood",
-];
+]
+	.concat(hardcoded)
+	.sort();
 
 await generate(path.join(getOutDir(), "block_tag.go"), [
 	{

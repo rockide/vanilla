@@ -20,6 +20,7 @@ var BlockTag = mapset.NewThreadUnsafeSet(
 	"minecraft:cornerable_stairs",
 	"minecraft:crop",
 	"minecraft:diamond_tier_destructible",
+	"minecraft:has_fence_connections",
 	"minecraft:iron_tier_destructible",
 	"minecraft:is_axe_item_destructible",
 	"minecraft:is_hoe_item_destructible",
